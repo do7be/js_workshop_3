@@ -52,7 +52,7 @@ ES6の基本文法を学ぶ。babelを用いたトランスパイル、gulpを�
 
 ワークショップ用リポジトリをクローンする
 
-```
+```bash
 $ cd ${適当なディレクトリ}
 $ git clone https://github.com/do7be/js_workshop_3.git
 $ cd js_workshop_3
@@ -60,7 +60,7 @@ $ cd js_workshop_3
 
 ### 開発環境準備(NPM, BABEL, gulp)
 
-```
+```bash
 $ npm init
 
 適当にEnterしていく。
@@ -68,13 +68,13 @@ $ npm init
 
 BABEL自体は`$ npm install babel`でインストールできるが、トランスパイルのたびにコマンド実行するのが面倒なので、今回はgulp-babelを使うことにする。
 
-```
+```bash
 $ npm install --save-dev gulp
 $ npm install --save-dev gulp-babel
 ```
 
 
-```
+```javascript
 $ vi gulpfile.js
 
 var gulp  = require("gulp"),
@@ -108,7 +108,7 @@ ES5までは変数宣言にvarしか使うことができなかったが、ES6�
 
 実際に書いてみる。
 
-```
+```javascript
 $ gulp watch
 $ vi es6/let.js
 
@@ -123,7 +123,7 @@ console.log(name); // 'コブラ'
 
 ./let.jsが作成されており、ES5にトランスパイルされたことを確認し、実行してみる。
 
-```
+```bash
 $ node let.js
 ```
 
@@ -131,7 +131,7 @@ $ node let.js
 
 ES5までのJSでは式の中で関数宣言する場合に以下のような宣言をしていた。
 
-```
+```javascript
 var hoge = function() {
   ;
 }
@@ -147,7 +147,7 @@ var foo = function(a) {
 
 ES6では以下のようにfunctionを記述することができる。
 
-```
+```javascript
 let hoge = () => {
   ;
 }
@@ -161,7 +161,7 @@ let foo = a => a * a;
 
 実際に書いてみる。
 
-```
+```javascript
 $ vi es6/arrow.js
 
 let add = (a, b) => {
@@ -174,7 +174,7 @@ console.log(result);
 
 トランスパイルされた./arrow.jsを確認し、実行してみる。
 
-```
+```bash
 $ node arrow.js
 ```
 
@@ -182,7 +182,7 @@ $ node arrow.js
 
 ES5では下記のように文字列内に変数を入れるのがすごく面倒だった。
 
-```
+```javascript
 var printProfile = function (firstName, lastName, old) {
   console.log('姓：' + lastName + ' 名：' + firstName + ' 年齢：' + old);
 }
@@ -192,13 +192,13 @@ printProfile('蛍', '一条', 11);
 
 ES6では下記のように書ける。
 
-```
+```javascript
 `${hoge}です！`
 ```
 
 実際に書いてみる。
 
-```
+```javascript
 $ vi es6/template.js
 let printProfile = (firstName, lastName, old) => {
   console.log(`姓：${lastName} 名：${firstName} 年齢：${old}`);
@@ -209,7 +209,39 @@ printProfile('蛍', '一条', 11);
 
 トランスパイルされた./template.jsを確認し、実行してみる。
 
+
+#### Class
+
+
+
+#### Module export, import
+
+Node.jsでお馴染みのModuleをimportすることができるようになった。
+
+
+```javascript
+$ es6/import.js
+
+import * as module from './module';
+module.Human.serif(module.defaultName);
+```
+
+```javascript
+$ es6/module/export.js
+
+export const defaultName = '島村卯月';
+
+export class Human {
+  static serif(name) {
+    console.log(`${name}がんばります！`);
+  }
+}
+```
+
+
 ES6の文法はまだまだあるが、時間がないので次回やることにする。
+
+
 
 ### フロントエンドでもES6を使ってみる(browserify, babelify)
 
@@ -219,13 +251,13 @@ gulpfile.jsにて同じようにトランスパイルしても、importなどは
 
 browserifyというパッケージを用いる。
 
-```
+```bash
 $ npm install --save-dev babelify browserify
 ```
 
 gulpfile.jsの要所要所に下記を追記する。
 
-```
+```javascript
 // パッケージ宣言
 var browserify = require('browserify'),
     babelify = require('babelify');
