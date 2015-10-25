@@ -209,5 +209,37 @@ printProfile('蛍', '一条', 11);
 
 トランスパイルされた./template.jsを確認し、実行してみる。
 
+ES6の文法はまだまだあるが、時間がないので次回やることにする。
 
 ### フロントエンドでもES6を使ってみる(browserify, babelify)
+
+gulpfile.jsにて同じようにトランスパイルしても、importなどはrequireに変換されるため、フロントエンド(ブラウザ側)からは利用することが出来ない。
+
+なのでトランスパイルしたJSファイルをさらにブラウザで使えるように変換する必要がある。
+
+browserifyというパッケージを用いる。
+
+```
+$ npm install --save-dev babelify browserify
+```
+
+gulpfile.jsの要所要所に下記を追記する。
+
+```
+// パッケージ宣言
+var browserify = require('browserify'),
+    babelify = require('babelify');
+
+// フロントエンド用トランスパイルのタスク宣言
+gulp.task('browserify', function() {
+  browserify('front/es6/*.js', { debug: true })
+    .transform(babelify)
+    .bundle()
+    .on("error", function (err) { console.log("Error : " + err.message); })
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest('front/'))
+});
+
+// ファイル監視に追加
+gulp.watch('front/es6/*.js', ['browserify'])
+```
