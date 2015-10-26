@@ -212,6 +212,36 @@ printProfile('蛍', '一条', 11);
 
 #### Class
 
+ES5まではJavaScriptにはclassが存在しなかった。代わりにprototypeというものを使って無理やりclassのような使い方をしていた。
+
+ES6からはclass構文がサポートされた。
+
+```javascript
+$ vi es6/class.js
+
+class Animal {
+  constructor(sound) {
+    this.sound = sound;
+  }
+
+  // メソッド
+  say() {
+    console.log(this.sound);
+  }
+
+  // staticメソッド
+  static kind() {
+    console.log('哺乳類');
+  }
+}
+
+let dog = new Animal('ワン');
+dog.say();
+
+Animal.kind()
+```
+
+トランスパイルされた./class.jsを確認し、実行してみる。
 
 
 #### Module export, import
@@ -233,10 +263,12 @@ export const defaultName = '島村卯月';
 
 export class Human {
   static serif(name) {
-    console.log(`${name}がんばります！`);
+    console.log(`${name}、がんばります！`);
   }
 }
 ```
+
+トランスパイルされた./import.js, ./export.jsを確認し、./import.jsを実行してみる。
 
 
 ES6の文法はまだまだあるが、時間がないので次回やることにする。
@@ -260,7 +292,7 @@ gulpfile.jsの要所要所に下記を追記する。
 ```javascript
 // パッケージ宣言
 var browserify = require('browserify'),
-    babelify = require('babelify');
+    babelify   = require('babelify');
 
 // フロントエンド用トランスパイルのタスク宣言
 gulp.task('browserify', function() {
