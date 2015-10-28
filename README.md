@@ -250,14 +250,14 @@ Node.jsでお馴染みのModuleをimportすることができるようになっ�
 
 
 ```javascript
-$ es6/import.js
+$ vi es6/import.js
 
 import * as module from './module';
 module.Human.serif(module.defaultName);
 ```
 
 ```javascript
-$ es6/module/export.js
+$ vi es6/module/export.js
 
 export const defaultName = '島村卯月';
 
@@ -284,7 +284,7 @@ gulpfile.jsにて同じようにトランスパイルしても、importなどは
 browserifyというパッケージを用いる。
 
 ```bash
-$ npm install --save-dev babelify browserify
+$ npm install --save-dev babelify browserify vinyl-source-stream
 ```
 
 gulpfile.jsの要所要所に下記を追記する。
@@ -292,7 +292,8 @@ gulpfile.jsの要所要所に下記を追記する。
 ```javascript
 // パッケージ宣言
 var browserify = require('browserify'),
-    babelify   = require('babelify');
+    babelify   = require('babelify'),
+    source     = require('vinyl-source-stream');
 
 // フロントエンド用トランスパイルのタスク宣言
 gulp.task('browserify', function() {
@@ -300,10 +301,16 @@ gulp.task('browserify', function() {
     .transform(babelify)
     .bundle()
     .on("error", function (err) { console.log("Error : " + err.message); })
-    .pipe(source('bundle.js'))
+    .pipe(source('bundle.js')) // この場合だと結合されてbundle.jsが出力される
     .pipe(gulp.dest('front/'))
 });
 
 // ファイル監視に追加
 gulp.watch('front/es6/*.js', ['browserify'])
+```
+
+front/es6/module.jsをimportして、front/index.htmlの`#message`にしまむーの名前を表示させよう。
+
+```
+$ vi front/es6/index.js
 ```
