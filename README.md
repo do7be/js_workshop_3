@@ -326,3 +326,5 @@ $ vi front/es6/index.js
 
 * `#message`の中身にテキストを入れる場合は`document.getElementById('message').textContent=hoge`
 * `front/es6/index.js`から作成された`front/es6/bundle.js`がHTMLから読み込まれる
+
+### おわり
