@@ -252,18 +252,19 @@ Node.jsでお馴染みのModuleをimportすることができるようになっ�
 ```javascript
 $ vi es6/import.js
 
-import * as module from './module';
-module.Human.serif(module.defaultName);
+import * as module from './export.js';
+let serif = module.Human.serif(module.defaultName);
+console.log(serif);
 ```
 
 ```javascript
-$ vi es6/module/export.js
+$ vi es6/export.js
 
 export const defaultName = '島村卯月';
 
 export class Human {
   static serif(name) {
-    console.log(`${name}、がんばります！`);
+    return `${name}、がんばります！`;
   }
 }
 ```
@@ -309,8 +310,19 @@ gulp.task('browserify', function() {
 gulp.watch('front/es6/*.js', ['browserify'])
 ```
 
-front/es6/module.jsをimportして、front/index.htmlの`#message`にしまむーの名前を表示させよう。
+設定を変えたので、一度gulpを終了する。
 
-```
+es6/export.jsをimportして、front/index.htmlの`#message`にしまむーの名前を表示させてみよう。
+
+```bash
+$ gulp watch
+
+別のターミナルを開く
+
 $ vi front/es6/index.js
 ```
+
+ヒント
+
+* `#message`の中身にテキストを入れる場合は`document.getElementById('message').textContent=hoge`
+* `front/es6/index.js`から作成された`front/es6/bundle.js`がHTMLから読み込まれる
