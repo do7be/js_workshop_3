@@ -69,21 +69,25 @@ $ npm init
 BABEL自体は`$ npm install babel`でインストールできるが、トランスパイルのたびにコマンド実行するのが面倒なので、今回はgulp-babelを使うことにする。
 
 ```bash
-$ npm install --save-dev gulp
-$ npm install --save-dev gulp-babel
+$ npm install --save-dev gulp gulp-plumber
+$ npm install --save-dev gulp-babel babel-preset-es2015
 ```
 
 
 ```javascript
 $ vi gulpfile.js
 
-var gulp  = require("gulp"),
-    babel = require("gulp-babel");
+var gulp    = require("gulp"),
+    babel   = require("gulp-babel"),
+    plumber = require("gulp-plumber");
 
 // トランスパイル処理
 gulp.task('babel', function() {
   gulp.src('es6/*.js')
-    .pipe(babel())
+    .pipe(plumber())
+    .pipe(babel({
+      presets: ['babel-preset-es2015']
+    }))
     .pipe(gulp.dest('./'))
 });
 
