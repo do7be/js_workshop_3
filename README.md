@@ -69,6 +69,7 @@ $ npm init
 BABEL自体は`$ npm install babel`でインストールできるが、トランスパイルのたびにコマンド実行するのが面倒なので、今回はgulp-babelを使うことにする。
 
 ```bash
+$ npm install -g babel
 $ npm install --save-dev gulp gulp-plumber
 $ npm install --save-dev gulp-babel babel-preset-es2015
 ```
@@ -281,6 +282,8 @@ ES6の文法はまだまだあるが、時間がないので次回やること�
 
 
 ### フロントエンドでもES6を使ってみる(browserify, babelify)
+
+※時間がなかったので次回やります
 
 gulpfile.jsにて同じようにトランスパイルしても、importなどはrequireに変換されるため、フロントエンド(ブラウザ側)からは利用することが出来ない。
 
