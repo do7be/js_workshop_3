@@ -66,12 +66,12 @@ $ npm init
 適当にEnterしていく。
 ```
 
-BABEL自体は`$ npm install babel`でインストールできるが、トランスパイルのたびにコマンド実行するのが面倒なので、今回はgulp-babelを使うことにする。
+BABEL自体は`$ npm install babel-cli`でインストールできるが、トランスパイルのたびにコマンド実行するのが面倒なので、今回はgulp-babelを使うことにする。
 
 ```bash
-$ npm install -g babel
+$ npm install -g babel-cli
 $ npm install --save-dev gulp gulp-plumber
-$ npm install --save-dev gulp-babel babel-preset-es2015
+$ npm install --save-dev babel-core gulp-babel babel-preset-es2015
 ```
 
 
